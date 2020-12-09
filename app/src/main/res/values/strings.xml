@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">TuiA Demo</string>
+
+    // 广告类型
+    <string name="splash_type">开屏广告</string>
+    <string name="cross_banner_type">横幅广告</string>
+    <string name="info_stream_type">信息流广告</string>
+    <string name="insert_info_type">插屏广告</string>
+    <string name="banner_type">banner广告</string>
+    <string name="floating_type">浮标广告</string>
+    <string name="text_link_type">文字链广告</string>
+    <string name="native_insert_info_type1">原生插屏广告1</string>
+    <string name="native_insert_info_type2">原生插屏广告2</string>
+    <string name="animation_floating_type">悬浮广告</string>
+
+    // 吐司提示信息
+    <string name="toast_time_over">广告显示时间结束</string>
+    <string name="toast_load_successful">广告加载完成</string>
+    <string name="toast_load_failed">广告加载失败</string>
+    <string name="toast_click_skip">点击跳过按钮</string>
+    <string name="toast_click">点击了广告</string>
+    <string name="toast_exposure">广告曝光成功</string>
+</resources>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="5"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <Button
+            android:id="@+id/bt_main_splash"
+            style="@style/main_bt"
+            android:background="@drawable/bt_selector"
+            android:text="@string/splash_type"/>
+
+        <Button
+            android:id="@+id/bt_main_cross_banner"
+            style="@style/main_bt"
+            android:background="@drawable/bt_selector"
+            android:text="@string/cross_banner_type"/>
+
+        <Button
+            android:id="@+id/bt_main_info_stream"
+            style="@style/main_bt"
+            android:background="@drawable/bt_selector"
+            android:text="@string/info_stream_type"/>
+
+        <Button
+            android:id="@+id/bt_main_insert_info"
+            style="@style/main_bt"
+            android:background="@drawable/bt_selector"
+            android:text="@string/insert_info_type"/>
+
+        <Button
+            android:id="@+id/bt_main_banner"
+            style="@style/main_bt"
+            android:background="@drawable/bt_selector"
+            android:text="@string/banner_type"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <Button
+            android:id="@+id/bt_main_floating"
+            style="@style/main_bt"
+            android:background="@drawable/bt_selector"
+            android:text="@string/floating_type"/>
+
+        <Button
+            android:id="@+id/bt_main_text_link"
+            style="@style/main_bt"
+            android:background="@drawable/bt_selector"
+            android:text="@string/text_link_type"/>
+
+        <Button
+            android:id="@+id/bt_main_native_insert1"
+            style="@style/main_bt"
+            android:background="@drawable/bt_selector"
+            android:text="@string/native_insert_info_type1"/>
+
+        <Button
+            android:id="@+id/bt_main_native_insert2"
+            style="@style/main_bt"
+            android:background="@drawable/bt_selector"
+            android:text="@string/native_insert_info_type2"/>
+
+        <Button
+            android:id="@+id/bt_main_animation_floating"
+            style="@style/main_bt"
+            android:background="@drawable/bt_selector"
+            android:text="@string/animation_floating_type"/>
+    </LinearLayout>
+</LinearLayout>

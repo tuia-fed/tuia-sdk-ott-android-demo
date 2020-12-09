@@ -1,0 +1,3 @@
+-ignorewarnings
+-dontwarn com.mediamain.android.**
+-keep class com.mediamain.android.** { *; }
