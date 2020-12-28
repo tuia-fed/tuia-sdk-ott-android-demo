@@ -11,9 +11,38 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.OTTDemo">
-        <activity android:name=".activity.HorBannerActivity"></activity>
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.AnimationFloatingOTTActivity"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".activity.TextLinkOTTActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.InfoStreamOTTActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.NativeInsertOTT2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.NativeInsertOTT1Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.CustomOTTActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.BannerOTTActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.InsertOTTActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.FloatingOTTActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.CrossBannerOTTActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.SplashOTTActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".MainActivity"

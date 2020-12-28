@@ -80,4 +80,17 @@
             android:background="@drawable/bt_selector"
             android:text="@string/animation_floating_type"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <Button
+            android:id="@+id/bt_main_custom"
+            style="@style/main_bt"
+            android:background="@drawable/bt_selector"
+            android:text="@string/custom_type"/>
+    </LinearLayout>
 </LinearLayout>

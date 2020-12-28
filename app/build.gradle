@@ -38,10 +38,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation ('com.tuia:sdk_ott:1.0.1'){
+    implementation ('com.tuia:sdk_ott:1.0.2.0'){
         transitive = true
     }
 
-//    implementation files('libs/sdk-1.0.1.aar')
     implementation files('libs/miit_mdid_1.0.13.aar')
+
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 }

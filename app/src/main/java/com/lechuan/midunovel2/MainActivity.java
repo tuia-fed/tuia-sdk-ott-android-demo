@@ -8,7 +8,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.lechuan.midunovel2.activity.SplashActivity;
+import com.lechuan.midunovel2.activity.AnimationFloatingOTTActivity;
+import com.lechuan.midunovel2.activity.BannerOTTActivity;
+import com.lechuan.midunovel2.activity.CrossBannerOTTActivity;
+import com.lechuan.midunovel2.activity.CustomOTTActivity;
+import com.lechuan.midunovel2.activity.FloatingOTTActivity;
+import com.lechuan.midunovel2.activity.InfoStreamOTTActivity;
+import com.lechuan.midunovel2.activity.InsertOTTActivity;
+import com.lechuan.midunovel2.activity.NativeInsertOTT1Activity;
+import com.lechuan.midunovel2.activity.NativeInsertOTT2Activity;
+import com.lechuan.midunovel2.activity.SplashOTTActivity;
+import com.lechuan.midunovel2.activity.TextLinkOTTActivity;
 import com.lechuan.midunovel2.config.TAConfig;
 import com.lechuan.midunovel2.utils.TADemoAnimationUtil;
 
@@ -24,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btNativeInsertInfo1;
     private Button btNativeInsertInfo2;
     private Button btAnimationFloating;
+    private Button btCustom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btNativeInsertInfo1 = findViewById(R.id.bt_main_native_insert1);
         btNativeInsertInfo2 = findViewById(R.id.bt_main_native_insert2);
         btAnimationFloating = findViewById(R.id.bt_main_animation_floating);
+        btCustom = findViewById(R.id.bt_main_custom);
     }
 
     private void initListener(){
@@ -61,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btNativeInsertInfo1.setOnClickListener(this);
         btNativeInsertInfo2.setOnClickListener(this);
         btAnimationFloating.setOnClickListener(this);
+        btCustom.setOnClickListener(this);
 
         btSplash.setOnFocusChangeListener(this);
         btCrossBanner.setOnFocusChangeListener(this);
@@ -72,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btNativeInsertInfo1.setOnFocusChangeListener(this);
         btNativeInsertInfo2.setOnFocusChangeListener(this);
         btAnimationFloating.setOnFocusChangeListener(this);
+        btCustom.setOnFocusChangeListener(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -79,37 +93,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         Intent intent = null;
         switch (v.getId()){
-            // 开屏广告
             case R.id.bt_main_splash:
-                intent = new Intent(this, SplashActivity.class);
+                intent = new Intent(this, SplashOTTActivity.class);
                 intent.putExtra("slotId", TAConfig.SPLASH_ID);
                 break;
             case R.id.bt_main_cross_banner:
-
+                intent = new Intent(this, CrossBannerOTTActivity.class);
+                intent.putExtra("slotId", TAConfig.CROSS_BANNER_ID);
                 break;
             case R.id.bt_main_info_stream:
-
+                intent = new Intent(this, InfoStreamOTTActivity.class);
+                intent.putExtra("slotId", TAConfig.INFO_STREAM_ID);
                 break;
             case R.id.bt_main_insert_info:
-
+                intent = new Intent(this, InsertOTTActivity.class);
+                intent.putExtra("slotId", TAConfig.INSER_INFO_ID);
                 break;
             case R.id.bt_main_banner:
-
+                intent = new Intent(this, BannerOTTActivity.class);
+                intent.putExtra("slotId", TAConfig.BANNER_ID);
                 break;
             case R.id.bt_main_floating:
-
+                intent = new Intent(this, FloatingOTTActivity.class);
+                intent.putExtra("slotId", TAConfig.FLOATING_ID);
                 break;
             case R.id.bt_main_text_link:
-
+                intent = new Intent(this, TextLinkOTTActivity.class);
+                intent.putExtra("slotId", TAConfig.TEXT_LINK_ID);
                 break;
             case R.id.bt_main_native_insert1:
-
+                intent = new Intent(this, NativeInsertOTT1Activity.class);
+                intent.putExtra("slotId", TAConfig.NATIVE_INSERT_INFO_ID);
                 break;
             case R.id.bt_main_native_insert2:
-
+                intent = new Intent(this, NativeInsertOTT2Activity.class);
+                intent.putExtra("slotId", TAConfig.NATIVE_INSERT_INFO_ID);
                 break;
             case R.id.bt_main_animation_floating:
-
+                intent = new Intent(this, AnimationFloatingOTTActivity.class);
+                intent.putExtra("slotId", TAConfig.FLOATING_ANIMATION_ID);
+                break;
+            case R.id.bt_main_custom:
+                intent = new Intent(this, CustomOTTActivity.class);
+                intent.putExtra("slotId", TAConfig.CUSTOM_ID);
                 break;
             default:
                 break;

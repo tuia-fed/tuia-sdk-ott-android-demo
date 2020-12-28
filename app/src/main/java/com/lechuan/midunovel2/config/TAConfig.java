@@ -28,45 +28,50 @@ public class TAConfig {
     /**
      * 开屏广告id
      */
-    public static final int SPLASH_ID = 330487;
+    public static final int SPLASH_ID = 0;
 
     /**
      * 横幅广告id
      */
-    public static final int CROSS_BANNER_ID = 323777;
+    public static final int CROSS_BANNER_ID = 0;
 
     /**
      * 信息流广告id
      */
-    public static final int INFO_STREAM_ID = 331035;
+    public static final int INFO_STREAM_ID = 0;
 
     /**
      * 插屏广告id
      */
-    public static final int INSER_INFO_ID = 323776;
+    public static final int INSER_INFO_ID = 0;
 
     /**
      * banner广告id
      */
-    public static final int BANNER_ID = 323778;
+    public static final int BANNER_ID = 0;
 
     /**
      * 浮标广告id
      */
-    public static final int FLOATING_ID = 323779;
+    public static final int FLOATING_ID = 0;
 
     /**
      * 文字链广告id
      */
-    public static final int TEXT_LINK_ID = 347174;
+    public static final int TEXT_LINK_ID = 0;
 
     /**
-     * 原生插屏广告id - 类型1
+     * 原生插屏广告id
      */
-    public static final int NATIVE_INSERT_INFO_1_ID = 331946;
+    public static final int NATIVE_INSERT_INFO_ID = 0;
 
     /**
-     * 原生插屏广告id - 类型2
+     * 悬浮升级广告id
      */
-    public static final int NATIVE_INSERT_INFO_2_ID = 331946;
+    public static final int FLOATING_ANIMATION_ID = 0;
+
+    /**
+     * 自定义广告
+     */
+    public static final int CUSTOM_ID = 0;
 }

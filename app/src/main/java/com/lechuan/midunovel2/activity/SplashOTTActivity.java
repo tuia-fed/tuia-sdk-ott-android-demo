@@ -3,6 +3,7 @@ package com.lechuan.midunovel2.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.lechuan.midunovel2.R;
@@ -13,7 +14,7 @@ import com.mediamain.android.view.holder.FoxSplashAd;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SplashActivity extends AppCompatActivity implements FoxNativeSplashHolder.LoadSplashAdListener {
+public class SplashOTTActivity extends AppCompatActivity implements FoxNativeSplashHolder.LoadSplashAdListener {
 
     private FrameLayout flContainer;
 
@@ -22,7 +23,7 @@ public class SplashActivity extends AppCompatActivity implements FoxNativeSplash
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.activity_splash_ott);
 
         flContainer = findViewById(R.id.fl_splash_container);
 
@@ -36,11 +37,11 @@ public class SplashActivity extends AppCompatActivity implements FoxNativeSplash
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-
         if (foxNativeSplashHolder != null){
             foxNativeSplashHolder.destroy();
         }
+
+        super.onDestroy();
     }
 
     @Override
@@ -52,10 +53,11 @@ public class SplashActivity extends AppCompatActivity implements FoxNativeSplash
     public void loadSplashAdSuccess(FoxSplashAd foxSplashAd) {
         View view = null;
         if (foxSplashAd != null){
+            foxSplashAd.setScaleType(ImageView.ScaleType.FIT_XY);
             view = foxSplashAd.getView();
         }
 
-        if (view != null && !SplashActivity.this.isFinishing()){
+        if (view != null && !SplashOTTActivity.this.isFinishing()){
             flContainer.removeAllViews();
             flContainer.addView(view);
         }else {

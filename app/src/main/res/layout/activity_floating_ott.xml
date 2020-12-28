@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:clipChildren="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_floating_container">
+
+    <com.mediamain.android.view.FoxWallView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fox_layout_height="150"
+        app:fox_layout_width="150"
+        android:layout_margin="10dp"
+        app:wall_shape="circular"
+        android:id="@+id/wv_floating_circle"/>
+</LinearLayout >

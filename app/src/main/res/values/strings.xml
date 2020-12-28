@@ -12,12 +12,19 @@
     <string name="native_insert_info_type1">原生插屏广告1</string>
     <string name="native_insert_info_type2">原生插屏广告2</string>
     <string name="animation_floating_type">悬浮广告</string>
+    <string name="custom_type">自定义广告</string>
 
     // 吐司提示信息
     <string name="toast_time_over">广告显示时间结束</string>
     <string name="toast_load_successful">广告加载完成</string>
     <string name="toast_load_failed">广告加载失败</string>
+    <string name="toast_receive_successful">广告回调成功</string>
+    <string name="toast_receive_failed">广告回调失败</string>
     <string name="toast_click_skip">点击跳过按钮</string>
     <string name="toast_click">点击了广告</string>
     <string name="toast_exposure">广告曝光成功</string>
+    <string name="toast_reward_close">关闭奖励</string>
+    <string name="toast_reward_show">显示奖励</string>
+    <string name="toast_prize_close">关闭奖品</string>
+    <string name="toast_prize_show">显示奖品</string>
 </resources>
