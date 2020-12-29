@@ -1,17 +1,18 @@
 # tuia-sdk-ott-android-demo
-1. 准备
-1.1 合作方媒体在 推啊媒体平台 注册账号
-1.2 在后台获取 appKey、appSecret 等参数
-1.3 申请广告位ID
+## 1. 准备  
+### 1.1 合作方媒体在 推啊媒体平台 注册账号  
+### 1.2 在后台获取 appKey、appSecret 等参数  
+### 1.3 申请广告位ID  
 
-2. SDK包导入
-2.1 项目的build.gradle文件中添加
+## 2. SDK包导入  
+### 2.1 项目的build.gradle文件中添加  
+```
 buildscript {
     repositories {
         google()
         //必须添加
         jcenter()
-        //必须添加
+        //必须添加 
         maven { url "https://jitpack.io" }
         //选择添加（如果依赖导不下来可以添加这个仓库地址）
         maven { url "https://dl.bintray.com/sunjiangrong/maven" }
@@ -33,37 +34,45 @@ allprojects {
             maven { url "https://dl.bintray.com/sunjiangrong/maven" }
         }
 }
-2.2 app下的build.gradle添加：(最小支持minSdkVersion 14)(重要)
-//设置 gradle 编译选项，这块可以根据⾃己对平台的选择进行合理配置。
-android {
-    compileSdkVersion 28
-    defaultConfig {
-        //根据自己项目配置需要配置
-        ndk {
-            abiFilters 'armeabi-v7a','x86','arm64-v8a','x86_64','armeabi'
-        }
-    packagingOptions {
-        doNotStrip "*/armeabi-v7a/*.so"
-        doNotStrip "*/x86/*.so"
-        doNotStrip "*/arm64-v8a/*.so"
-        doNotStrip "*/x86_64/*.so"
-        doNotStrip "armeabi.so"
-    }
-}
-//关于获取设备唯一标识符OAID操作(如果项目本身没有引用OAID的aar包):
-//把 miit_mdid_1.0.13.aar 拷⻉到项目的 libs ⽬录，并设置依赖如下
-dependencies {
-    implementation ('com.tuia:sdk_ott:1.0.2.0'){
-    	transitive = true
-    }
-    implementation files('libs/miit_mdid_1.0.13.aar')
-}
-
-3 AndroidManifest配置
-3.1 权限
-//(sdk内部已经处理相关权限问题，如果遇到冲突咨询对应开发即可)
+```
+### 2.2 app下的build.gradle添加：(最小支持minSdkVersion 14)(重要)  
+### 设置 gradle 编译选项，这块可以根据⾃己对平台的选择进行合理配置。  
+```
+android {  
+    compileSdkVersion 28  
+    defaultConfig {  
+        //根据自己项目配置需要配置  
+        ndk {  
+            abiFilters 'armeabi-v7a','x86','arm64-v8a','x86_64','armeabi'  
+        }  
+    packagingOptions {  
+        doNotStrip "*/armeabi-v7a/*.so"  
+        doNotStrip "*/x86/*.so"  
+        doNotStrip "*/arm64-v8a/*.so"  
+        doNotStrip "*/x86_64/*.so"  
+        doNotStrip "armeabi.so"  
+    }  
+}  
+```
+### 关于获取设备唯一标识符OAID操作(如果项目本身没有引用OAID的aar包):  
+### 把 miit_mdid_1.0.13.aar 拷⻉到项目的 libs ⽬录，并设置依赖如下  
+```
+dependencies {  
+    implementation ('com.tuia:sdk_ott:1.0.2.0'){  
+    	transitive = true  
+    }  
+    implementation files('libs/miit_mdid_1.0.13.aar')  
+}  
+```
+  
+## 3 AndroidManifest配置  
+### 3.1 权限  
+### (sdk内部已经处理相关权限问题，如果遇到冲突咨询对应开发即可)  
+```
 <uses-permission android:name="android.permission.INTERNET"/>
-3.2 设置meta-data
+```
+### 3.2 设置meta-data
+```
 <!-- 推啊appkey和appSecret从媒体管理后台获取 咨询运营人员 记得替换成自己的-->
     <!-- 推啊appkey-->
     <meta-data
@@ -73,41 +82,52 @@ dependencies {
     <meta-data
         android:name="TUIA_APPSECRET"
         android:value="3Wq4afvvdPhyHBR29LgRwEC16gkrrFXZ5BRoL2E" />
+```
         
-4 运行环境配置
-本SDK可运行于Android4.0(API Level 14) 及以上版本。
+## 4 运行环境配置  
+### 本SDK可运行于Android4.0(API Level 14) 及以上版本。  
+```
 <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="26" />
+```
 
-5 混淆(混淆规则1.3.0.0及以上版本修改)
-V1.3.0.0及以上版本
+## 5 混淆(混淆规则1.3.0.0及以上版本修改)  
+### V1.3.0.0及以上版本  
+```
 -ignorewarnings
 -dontwarn com.lechuan.midunovel.**
 -keep class com.lechuan.midunovel.** { *; }
+```
 
-V1.3.0.0以下版本
+### V1.3.0.0以下版本
+```
 -ignorewarnings
 -dontwarn com.lechuan.midunovel.view.**
 -keep class com.lechuan.midunovel.view.** { *; }
+```
 
-6 初始化SDK
-6.1 初始化(重要)
-在自定义的Application 的onCreate方法中，调用以下方法：（详细内容请参考demo中的代码示例）
+## 6 初始化SDK
+### 6.1 初始化(重要)
+### 在自定义的Application 的onCreate方法中，调用以下方法：（详细内容请参考demo中的代码示例）
+```
 //基础SDK初始化
 FoxSDK.init(this);
+```
 
-7 加载广告（选择合适的广告类型）
-7.1 开屏广告接入
-（开屏广告嵌入代码说明（详见demo SplashOTTActivity代码））
-第一步：xml中引入布局
+## 7 加载广告（选择合适的广告类型）
+### 7.1 开屏广告接入
+### （开屏广告嵌入代码说明（详见demo SplashOTTActivity代码））
+### 第一步：xml中引入布局
+```
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fl_splash_container">
-
 </FrameLayout>
-第二步：代码引入实例
+```
+### 第二步：代码引入实例
+```
 public class SplashOTTActivity extends AppCompatActivity implements FoxNativeSplashHolder.LoadSplashAdListener {
 
     private FrameLayout flContainer;
@@ -202,9 +222,11 @@ public class SplashOTTActivity extends AppCompatActivity implements FoxNativeSpl
         finish();
     }
 }
-7.2 横幅广告接入
-（横幅广告嵌入代码说明（详见demo CrossBannerOTTActivity代码））
-第一步：xml中引入布局文件
+```
+### 7.2 横幅广告接入
+### （横幅广告嵌入代码说明（详见demo CrossBannerOTTActivity代码））
+### 第一步：xml中引入布局文件
+```
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -220,7 +242,9 @@ public class SplashOTTActivity extends AppCompatActivity implements FoxNativeSpl
         android:id="@+id/sv_cross_banner"
         android:layout_margin="10dp"/>
 </LinearLayout>
-第二步：代码引入示例
+```
+### 第二步：代码引入示例
+```
 public class CrossBannerOTTActivity extends AppCompatActivity {
 
     private LinearLayout llContainer;
@@ -341,6 +365,7 @@ public class CrossBannerOTTActivity extends AppCompatActivity {
         super.onDestroy();
     }
 }
+```
 7.3 浮标/icon广告接入
 （浮标广告嵌入代码说明（详见demo FloatingOTTActivity代码））
 第一步：xml中引入布局文件
