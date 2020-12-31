@@ -33,6 +33,7 @@ public class InfoStreamOTTActivity extends AppCompatActivity implements FoxTempl
         lv = findViewById(R.id.lv_info_stream);
 
         slotId = getIntent().getIntExtra("slotId", 0);
+        // 创建信息流holder
         foxTempletInfoFeedHolder = FoxNativeAdHelper.getFoxTempletInfoFeedHolder();
 
         initView();
@@ -42,12 +43,14 @@ public class InfoStreamOTTActivity extends AppCompatActivity implements FoxTempl
         adapter = new AdListAdapter();
 
         lv.setAdapter(adapter);
+        // 加载广告id
         foxTempletInfoFeedHolder.loadInfoAd(slotId, this);
         lv.requestFocus();
     }
 
     @Override
     protected void onDestroy() {
+        // 销毁holder
         if (foxTempletInfoFeedHolder != null){
             foxTempletInfoFeedHolder.destroy();
         }
@@ -66,8 +69,10 @@ public class InfoStreamOTTActivity extends AppCompatActivity implements FoxTempl
             return;
         }
 
+        // 插入广告到listview中
         dataList.add(new DemoBean(null));
         for (IFoxTempletInfoFeedAd ad : list){
+            // 对信息流广告属性设置
             ad.setImageSize(200, 200);
             ad.setTextColor(R.color.yellow);
             ad.setTextSize(20);

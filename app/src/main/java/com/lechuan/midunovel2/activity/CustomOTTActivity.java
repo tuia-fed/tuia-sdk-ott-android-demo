@@ -18,7 +18,7 @@ public class CustomOTTActivity extends AppCompatActivity {
     private FoxCustomerTm customerTm;
 
     private int slotId;
-    private String url = "https://engine.tuiatest.cn/index/activity?appKey=427wTcUcwxkttDmGcqYMTU7NJo3k&adslotId=283720&device_id=1010d8fcf4c0fd1f7b8937a7fc19bb8e&userFromType=1&sckId=48&actsck=0&formUserId=test-12345&sckFromType=0&newApiRid=0a68105fkgsse9vl-84&sdkVersion=3.0.2.5&userId=test-12345";
+    private String url = "baidu.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class CustomOTTActivity extends AppCompatActivity {
     }
 
     private void initListener(){
+        // 自定义广告view添加listener
         customerTm.setAdListener(new FoxNsTmListener() {
             @Override
             public void onReceiveAd(String s) {
@@ -53,23 +54,23 @@ public class CustomOTTActivity extends AppCompatActivity {
             }
         });
 
-        bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 素材点击调用
-                customerTm.adClicked();
+        bt.setOnClickListener(v -> {
+            // 素材点击调用
+            customerTm.adClicked();
 
-                if (slotId > 0){
-                    customerTm.loadAd(slotId);
-                }else {
-                    customerTm.openFoxActivity(url);
-                }
+            if (slotId > 0){
+                // 加载广告id
+                customerTm.loadAd(slotId);
+            }else {
+                // 打开自定义活动页
+                customerTm.openFoxActivity(url);
             }
         });
     }
 
     @Override
     protected void onDestroy() {
+        // 销毁view
         if (customerTm != null){
             customerTm.destroy();
         }

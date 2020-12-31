@@ -22,12 +22,15 @@ public class BannerOTTActivity extends AppCompatActivity {
 
         wv = findViewById(R.id.wv_banner);
 
+        // 加载广告id
         wv.loadAd(slotId);
+        // 初始化焦点位置
         wv.requestFocus();
     }
 
     @Override
     protected void onDestroy() {
+        // 销毁view
         if (wv != null){
             wv.destroy();
         }

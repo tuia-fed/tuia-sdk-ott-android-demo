@@ -31,12 +31,14 @@ public class TextLinkOTTActivity extends AppCompatActivity implements FoxTextLin
     }
 
     private void initView(){
+        // 创建文字链holder
         foxTextLinkHolder = FoxNativeAdHelper.getFoxTextLinkHolder();
         foxTextLinkHolder.loadInfoAd(this, slotId, TAConfig.USER_ID, this);
     }
 
     @Override
     protected void onDestroy() {
+        // 销毁holder
         if (foxTextLinkHolder != null) {
             foxTextLinkHolder.destroy();
         }
@@ -59,14 +61,17 @@ public class TextLinkOTTActivity extends AppCompatActivity implements FoxTextLin
             return;
         }
 
+        // 对holder里对文字属性设置
         foxTextLintAd.setDescSize(26);
         foxTextLintAd.setTitleSize(26);
         foxTextLintAd.setDescColor(R.color.black);
         foxTextLintAd.setTitleColor(R.color.black);
         foxTextLintAd.setDescColor(getResources().getColor(R.color.yellow));
+        // 动态添加文字链holder到container
         rlContainer.removeAllViews();
         rlContainer.addView(foxTextLintAd.getView());
 
+        // 对view手动设置获焦
         foxTextLintAd.getView().requestFocus();
     }
 

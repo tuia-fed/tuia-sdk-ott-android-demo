@@ -32,6 +32,7 @@ public class FloatingOTTActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        // 销毁view
         super.onDestroy();
 
         if (wvCircle != null){
@@ -44,11 +45,13 @@ public class FloatingOTTActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        // 动态添加广告
         wvSquare = new FoxWallView(this, 0);
         wvSquare.setFoxWidth(200);
         wvSquare.setFoxHeight(200);
         llContainer.addView(wvSquare);
 
+        // 加载广告id
         wvCircle.loadAd(slotId);
         wvSquare.loadAd(slotId, TAConfig.USER_ID);
     }

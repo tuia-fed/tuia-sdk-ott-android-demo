@@ -28,15 +28,20 @@ public class AnimationFloatingOTTActivity extends AppCompatActivity implements F
     }
 
     private void initView() {
+        // 创建悬浮升级holder
         foxFloatingWebHolder = FoxNativeAdHelper.getFoxFloatingWebHolder();
+        // holder绑定当前activity
         foxFloatingWebHolder.setFloatingHost(this);
+        // 设置holder信息
         foxFloatingWebHolder.setConfigInfo(TAConfig.APP_KEY, TAConfig.APP_SECRET);
 
+        // 设置holder属性
         String left = "50";
         String right = "100";
         String top = "100";
         String bottom = "50";
 
+        // holder加载广告id
         foxFloatingWebHolder.loadFloatingWebAd(slotId, TAConfig.USER_ID, left, top, right, bottom, this);
     }
 
@@ -45,6 +50,7 @@ public class AnimationFloatingOTTActivity extends AppCompatActivity implements F
         boolean isConsumed = false;
         if (KeyEvent.KEYCODE_BACK == keyCode) {
             if (foxFloatingWebHolder != null) {
+                // 获取holder是否允许返回键退出
                 isConsumed = foxFloatingWebHolder.goBack();
             }
         }
@@ -57,6 +63,7 @@ public class AnimationFloatingOTTActivity extends AppCompatActivity implements F
 
     @Override
     protected void onDestroy() {
+        // 销毁holder
         if (foxFloatingWebHolder != null){
             foxFloatingWebHolder.destroy();
         }

@@ -28,27 +28,25 @@ public class InsertOTTActivity extends AppCompatActivity {
 
         initListener();
 
+        // 初始化焦点位置
         btn.requestFocus();
     }
 
     private void initListener(){
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tbScreen = new FoxTbScreen(InsertOTTActivity.this);
-                tbScreen.setBackEnable(true);
-                tbScreen.loadAd(slotId, TAConfig.USER_ID);
-            }
+        btn.setOnClickListener(v -> {
+            // 弹窗广告绑定当前activity
+            tbScreen = new FoxTbScreen(InsertOTTActivity.this);
+            // 设置按返回键可关闭弹窗广告（option）
+            tbScreen.setBackEnable(true);
+            // 加载广告id
+            tbScreen.loadAd(slotId, TAConfig.USER_ID);
         });
 
-        btn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
-                    TADemoAnimationUtil.enlarge(v, 1.2F, 300);
-                }else {
-                    TADemoAnimationUtil.shrink(v, 1.2F, 300);
-                }
+        btn.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus){
+                TADemoAnimationUtil.enlarge(v, 1.2F, 300);
+            }else {
+                TADemoAnimationUtil.shrink(v, 1.2F, 300);
             }
         });
     }

@@ -27,7 +27,9 @@ public class NativeInsertOTT1Activity extends AppCompatActivity {
     }
 
     private void initAd(){
+        // 创建原生插屏广告view
         ad = new Ad(slotId + "", TAConfig.USER_ID, "");
+        // view初始化，并绑定当前activity
         ad.init(this, null, Ad.AD_URL_NEW, new AdCallBack() {
             @Override
             public void onReceiveAd() {
@@ -77,6 +79,7 @@ public class NativeInsertOTT1Activity extends AppCompatActivity {
                         NativeInsertOTT1Activity.this.getResources().getString(R.string.toast_prize_show), Toast.LENGTH_SHORT).show();
             }
         });
+        // 加载广告id
         ad.loadAd(this, false);
     }
 
@@ -84,6 +87,7 @@ public class NativeInsertOTT1Activity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         boolean isConsume = false;
         if (ad != null){
+            // 获取广告是否允许返回键退出
             isConsume = ad.onKeyBack(keyCode, event);
         }
 
@@ -95,6 +99,7 @@ public class NativeInsertOTT1Activity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        // 销毁view
         if (ad != null){
             ad.destroy();
         }

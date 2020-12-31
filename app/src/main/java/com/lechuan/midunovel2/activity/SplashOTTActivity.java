@@ -37,6 +37,7 @@ public class SplashOTTActivity extends AppCompatActivity implements FoxNativeSpl
 
     @Override
     protected void onDestroy() {
+        // 销毁holder
         if (foxNativeSplashHolder != null){
             foxNativeSplashHolder.destroy();
         }
@@ -53,11 +54,14 @@ public class SplashOTTActivity extends AppCompatActivity implements FoxNativeSpl
     public void loadSplashAdSuccess(FoxSplashAd foxSplashAd) {
         View view = null;
         if (foxSplashAd != null){
+            // 对请求成功的广告的图片类型设置
             foxSplashAd.setScaleType(ImageView.ScaleType.FIT_XY);
+            // 获取到广告view
             view = foxSplashAd.getView();
         }
 
         if (view != null && !SplashOTTActivity.this.isFinishing()){
+            // 父类布局添加广告view
             flContainer.removeAllViews();
             flContainer.addView(view);
         }else {

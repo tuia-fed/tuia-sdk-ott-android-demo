@@ -27,6 +27,7 @@ public class CrossBannerOTTActivity extends AppCompatActivity {
         initStreamView();
 
         int slotId = getIntent().getIntExtra("slotId", 0);
+        // 加载广告ID
         foxStreamerView1.loadAd(slotId);
         foxStreamerView2.loadAd(slotId, TAConfig.USER_ID);
     }
@@ -36,6 +37,7 @@ public class CrossBannerOTTActivity extends AppCompatActivity {
             return;
         }
 
+        // 信息流view添加listener
         foxStreamerView1.setAdListener(new FoxListener() {
             @Override
             public void onReceiveAd() {
@@ -73,6 +75,7 @@ public class CrossBannerOTTActivity extends AppCompatActivity {
             }
         });
 
+        // 动态添加广告view
         foxStreamerView2 = new FoxStreamerView(this, null);
         foxStreamerView2.setFoxWidth(1000);
         foxStreamerView2.setFoxHeight(500);

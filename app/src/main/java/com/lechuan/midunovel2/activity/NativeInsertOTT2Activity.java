@@ -32,7 +32,9 @@ public class NativeInsertOTT2Activity extends AppCompatActivity {
     }
 
     private void initView() {
+        // 创建原生插屏广告view
         ad = new Ad(slotId + "", TAConfig.USER_ID, "", Ad.AD_NEW_LOADING_HIDE);
+        // view初始化，并绑定到当前activity
         ad.init(this, null, Ad.AD_URL_OLD, new DefaultAdCallBack() {
             @Override
             public void onReceiveAd() {
@@ -44,14 +46,12 @@ public class NativeInsertOTT2Activity extends AppCompatActivity {
                 isLoadSuccess = true;
             }
         });
+        // 加载广告id
         ad.loadAd(this, true);
 
-        bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isLoadSuccess){
-                    ad.show();
-                }
+        bt.setOnClickListener(v -> {
+            if(isLoadSuccess){
+                ad.show();
             }
         });
     }
@@ -60,6 +60,7 @@ public class NativeInsertOTT2Activity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         boolean isConsume = false;
         if (ad != null){
+            // 获取广告是否允许返回键退出
             isConsume = ad.onKeyBack(keyCode, event);
         }
 
@@ -71,6 +72,7 @@ public class NativeInsertOTT2Activity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        // 销毁view
         if (ad != null){
             ad.destroy();
         }
