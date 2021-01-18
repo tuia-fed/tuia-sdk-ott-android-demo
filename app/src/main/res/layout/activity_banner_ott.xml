@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:orientation="vertical">
+    android:clipChildren="false">
 
     <com.mediamain.android.view.FoxWallView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:focusable="true"
-        android:id="@+id/wv_banner"/>
-</LinearLayout>
+        android:id="@+id/wv_banner"
+        android:layout_gravity="center"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_top"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tv_banner_top"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_left"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/tv_banner_left"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_right"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical|end"
+        android:id="@+id/tv_banner_right"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_bottom"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal|bottom"
+        android:id="@+id/tv_banner_bottom"/>
+
+</FrameLayout>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -7,9 +7,37 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:padding="10dp"
         android:textSize="24dp"
         android:text="弹出广告"
         android:id="@+id/bt_insert"/>
-</RelativeLayout>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_top"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tv_insert_top"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_left"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/tv_insert_left"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_right"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical|end"
+        android:id="@+id/tv_insert_right"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_bottom"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal|bottom"
+        android:id="@+id/tv_insert_bottom"/>
+</FrameLayout>

@@ -1,19 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:clipChildren="false"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ll_floating_container">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.mediamain.android.view.FoxWallView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:fox_layout_height="150"
-        app:fox_layout_width="150"
-        android:layout_margin="10dp"
-        app:wall_shape="circular"
-        android:id="@+id/wv_floating_circle"/>
-</LinearLayout >
+        android:orientation="vertical"
+        android:clipChildren="false"
+        android:layout_gravity="center"
+        android:id="@+id/ll_floating_container">
+
+        <com.mediamain.android.view.FoxWallView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fox_layout_height="150"
+            app:fox_layout_width="150"
+            android:layout_margin="10dp"
+            app:wall_shape="circular"
+            android:id="@+id/wv_floating_circle"/>
+    </LinearLayout >
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_top"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tv_floating_top"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_left"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/tv_floating_left"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_right"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical|end"
+        android:id="@+id/tv_floating_right"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_bottom"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal|bottom"
+        android:id="@+id/tv_floating_bottom"/>
+</FrameLayout>

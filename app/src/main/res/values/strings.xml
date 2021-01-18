@@ -27,4 +27,10 @@
     <string name="toast_reward_show">显示奖励</string>
     <string name="toast_prize_close">关闭奖品</string>
     <string name="toast_prize_show">显示奖品</string>
+
+    // 控件文字
+    <string name="on_the_top">我在上面</string>
+    <string name="on_the_left">我在左边</string>
+    <string name="on_the_right">我在右边</string>
+    <string name="on_the_bottom">我在下面</string>
 </resources>

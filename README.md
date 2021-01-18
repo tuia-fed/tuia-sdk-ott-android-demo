@@ -228,28 +228,70 @@ public class SplashOTTActivity extends AppCompatActivity implements FoxNativeSpl
 ### 第一步：xml中引入布局文件
 ```
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:clipChildren="false"
-    android:id="@+id/ll_cross_banner_container">
+    android:layout_height="match_parent">
 
-    <com.mediamain.android.view.FoxStreamerView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sv_cross_banner"
-        android:layout_margin="10dp"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:clipChildren="false"
+        android:layout_gravity="center"
+        android:id="@+id/ll_cross_banner_container">
+
+        <com.mediamain.android.view.FoxStreamerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sv_cross_banner"
+            android:layout_margin="10dp"/>
+    </LinearLayout>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_top"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tv_cross_banner_top"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_left"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/tv_cross_banner_left"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_right"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical|end"
+        android:id="@+id/tv_cross_banner_right"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_bottom"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal|bottom"
+        android:id="@+id/tv_cross_banner_bottom"/>
+</FrameLayout>
 ```
 ### 第二步：代码引入示例
 ```
-public class CrossBannerOTTActivity extends AppCompatActivity {
+public class CrossBannerOTTActivity extends AppCompatActivity implements View.OnFocusChangeListener {
 
     private LinearLayout llContainer;
     private FoxStreamerView foxStreamerView1;
     private FoxStreamerView foxStreamerView2;
+    
+    private TextView tvLeft;
+    private TextView tvRight;
+    private TextView tvTop;
+    private TextView tvBottom;
+    
+    private static final int ANIMATION_DURATION = 300;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -258,9 +300,28 @@ public class CrossBannerOTTActivity extends AppCompatActivity {
 
         llContainer = findViewById(R.id.ll_cross_banner_container);
         foxStreamerView1 = findViewById(R.id.sv_cross_banner);
+        tvTop = findViewById(R.id.tv_cross_banner_top);
+        tvLeft = findViewById(R.id.tv_cross_banner_left);
+        tvRight = findViewById(R.id.tv_cross_banner_right);
+        tvBottom = findViewById(R.id.tv_cross_banner_bottom);
         initStreamView();
+        
+        // 设置获焦监听事件
+        tvLeft.setOnFocusChangeListener(this);
+        tvRight.setOnFocusChangeListener(this);
+        tvTop.setOnFocusChangeListener(this);
+        tvBottom.setOnFocusChangeListener(this);
+        
+        // 设置方向按键
+        foxStreamerView1.setFoxNextUpFocusView(tvTop);
+        foxStreamerView1.setFoxNextLeftFocusView(tvLeft);
+        foxStreamerView2.setFoxNextLeftFocusView(tvLeft);
+        foxStreamerView1.setFoxNextRightFocusView(tvRight);
+        foxStreamerView2.setFoxNextRightFocusView(tvRight);
+        foxStreamerView2.setFoxNextDownFocusView(tvBottom);
 
         int slotId = getIntent().getIntExtra("slotId", 0);
+        // 加载广告ID
         foxStreamerView1.loadAd(slotId);
         foxStreamerView2.loadAd(slotId, TAConfig.USER_ID);
     }
@@ -270,7 +331,7 @@ public class CrossBannerOTTActivity extends AppCompatActivity {
             return;
         }
 
-        // 布局中添加广告
+        // 信息流view添加listener
         foxStreamerView1.setAdListener(new FoxListener() {
             @Override
             public void onReceiveAd() {
@@ -308,7 +369,7 @@ public class CrossBannerOTTActivity extends AppCompatActivity {
             }
         });
 
-        // 动态添加广告
+        // 动态添加广告view
         foxStreamerView2 = new FoxStreamerView(this, null);
         foxStreamerView2.setFoxWidth(1000);
         foxStreamerView2.setFoxHeight(500);
@@ -364,6 +425,15 @@ public class CrossBannerOTTActivity extends AppCompatActivity {
 
         super.onDestroy();
     }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus){
+            TADemoAnimationUtil.enlarge(v, 1.2F, ANIMATION_DURATION);
+        }else {
+            TADemoAnimationUtil.shrink(v, 1.2F, ANIMATION_DURATION);
+        }
+    }
 }
 ```
 ### 7.3 浮标/icon广告接入
@@ -371,32 +441,74 @@ public class CrossBannerOTTActivity extends AppCompatActivity {
 ### 第一步：xml中引入布局文件
 ```
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:clipChildren="false"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ll_floating_container">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.mediamain.android.view.FoxWallView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:fox_layout_height="150"
-        app:fox_layout_width="150"
-        android:layout_margin="10dp"
-        app:wall_shape="circular"
-        android:id="@+id/wv_floating_circle"/>
-</LinearLayout >
+        android:orientation="vertical"
+        android:clipChildren="false"
+        android:layout_gravity="center"
+        android:id="@+id/ll_floating_container">
+
+        <com.mediamain.android.view.FoxWallView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fox_layout_height="150"
+            app:fox_layout_width="150"
+            android:layout_margin="10dp"
+            app:wall_shape="circular"
+            android:id="@+id/wv_floating_circle"/>
+    </LinearLayout >
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_top"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tv_floating_top"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_left"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/tv_floating_left"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_right"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical|end"
+        android:id="@+id/tv_floating_right"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_bottom"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal|bottom"
+        android:id="@+id/tv_floating_bottom"/>
+</FrameLayout>
+
 ```
 ### 第二步：代码引入示例
 ```
-public class FloatingOTTActivity extends AppCompatActivity {
+public class FloatingOTTActivity extends AppCompatActivity implements View.OnFocusChangeListener {
 
     private LinearLayout llContainer;
     private FoxWallView wvCircle;
     private FoxWallView wvSquare;
+
+    private TextView tvLeft;
+    private TextView tvRight;
+    private TextView tvTop;
+    private TextView tvBottom;
+
+    private static final int ANIMATION_DURATION = 300;
 
     private int slotId;
 
@@ -407,14 +519,25 @@ public class FloatingOTTActivity extends AppCompatActivity {
 
         llContainer = findViewById(R.id.ll_floating_container);
         wvCircle = findViewById(R.id.wv_floating_circle);
+        tvLeft = findViewById(R.id.tv_floating_left);
+        tvRight = findViewById(R.id.tv_floating_right);
+        tvTop = findViewById(R.id.tv_floating_top);
+        tvBottom = findViewById(R.id.tv_floating_bottom);
 
+        // 获取广告id
         slotId = getIntent().getIntExtra("slotId", 0);
 
         initView();
+        
+        tvLeft.setOnFocusChangeListener(this);
+        tvRight.setOnFocusChangeListener(this);
+        tvTop.setOnFocusChangeListener(this);
+        tvBottom.setOnFocusChangeListener(this);
     }
 
     @Override
     protected void onDestroy() {
+        // 销毁view
         super.onDestroy();
 
         if (wvCircle != null){
@@ -432,10 +555,27 @@ public class FloatingOTTActivity extends AppCompatActivity {
         wvSquare.setFoxWidth(200);
         wvSquare.setFoxHeight(200);
         llContainer.addView(wvSquare);
+        
+        // 设置按键监听事件
+        wvCircle.setFoxNextUpFocusView(tvTop);
+        wvCircle.setFoxNextLeftFocusView(tvLeft);
+        wvSquare.setFoxNextLeftFocusView(tvLeft);
+        wvCircle.setFoxNextRightFocusView(tvRight);
+        wvSquare.setFoxNextRightFocusView(tvRight);
+        wvSquare.setFoxNextDownFocusView(tvBottom);
 
         // 加载广告id
         wvCircle.loadAd(slotId);
         wvSquare.loadAd(slotId, TAConfig.USER_ID);
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus){
+            TADemoAnimationUtil.enlarge(v, 1.2F, ANIMATION_DURATION);
+        }else {
+            TADemoAnimationUtil.shrink(v, 1.2F, ANIMATION_DURATION);
+        }
     }
 }
 ```
@@ -444,7 +584,7 @@ public class FloatingOTTActivity extends AppCompatActivity {
 ### 第一步：xml中引入布局文件
 ```
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -452,19 +592,54 @@ public class FloatingOTTActivity extends AppCompatActivity {
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:padding="10dp"
         android:textSize="24dp"
         android:text="弹出广告"
         android:id="@+id/bt_insert"/>
-</RelativeLayout>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_top"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tv_insert_top"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_left"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/tv_insert_left"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_right"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical|end"
+        android:id="@+id/tv_insert_right"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_bottom"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal|bottom"
+        android:id="@+id/tv_insert_bottom"/>
+</FrameLayout>
 ```
 ### 第二步：代码直接引入示例
 ```
-public class InsertOTTActivity extends AppCompatActivity {
+public class InsertOTTActivity extends AppCompatActivity implements View.OnFocusChangeListener {
 
     private Button btn;
     private FoxTbScreen tbScreen;
+
+    private TextView tvLeft;
+    private TextView tvRight;
+    private TextView tvTop;
+    private TextView tvBottom;
+
+    private static final int ANIMATION_DURATION = 300;
 
     private int slotId;
 
@@ -473,8 +648,18 @@ public class InsertOTTActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_ott);
         btn = findViewById(R.id.bt_insert);
+        tvLeft = findViewById(R.id.tv_insert_left);
+        tvRight = findViewById(R.id.tv_insert_right);
+        tvTop = findViewById(R.id.tv_insert_top);
+        tvBottom = findViewById(R.id.tv_insert_bottom);
 
         slotId = getIntent().getIntExtra("slotId", 0);
+
+        btn.setOnFocusChangeListener(this);
+        tvLeft.setOnFocusChangeListener(this);
+        tvRight.setOnFocusChangeListener(this);
+        tvTop.setOnFocusChangeListener(this);
+        tvBottom.setOnFocusChangeListener(this);
 
         initListener();
 
@@ -491,14 +676,20 @@ public class InsertOTTActivity extends AppCompatActivity {
             // 加载广告id
             tbScreen.loadAd(slotId, TAConfig.USER_ID);
         });
+        
+        tbScreen.setFoxNextLeftFocusView(tvLeft);
+        tbScreen.setFoxNextRightFocusView(tvRight);
+        tbScreen.setFoxNextUpFocusView(tvTop);
+        tbScreen.setFoxNextDownFocusView(tvBottom);
+    }
 
-        btn.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus){
-                TADemoAnimationUtil.enlarge(v, 1.2F, 300);
-            }else {
-                TADemoAnimationUtil.shrink(v, 1.2F, 300);
-            }
-        });
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus){
+            TADemoAnimationUtil.enlarge(v, 1.2F, ANIMATION_DURATION);
+        }else {
+            TADemoAnimationUtil.shrink(v, 1.2F, ANIMATION_DURATION);
+        }
     }
 }
 ```
@@ -507,27 +698,63 @@ public class InsertOTTActivity extends AppCompatActivity {
 ### 第一步：xml中引入布局文件
 ```
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:orientation="vertical">
+    android:clipChildren="false">
 
     <com.mediamain.android.view.FoxWallView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:focusable="true"
-        android:id="@+id/wv_banner"/>
-</LinearLayout>
+        android:id="@+id/wv_banner"
+        android:layout_gravity="center"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_top"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tv_banner_top"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_left"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/tv_banner_left"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_right"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical|end"
+        android:id="@+id/tv_banner_right"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_bottom"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal|bottom"
+        android:id="@+id/tv_banner_bottom"/>
+    
+</FrameLayout>
 ```
 ### 第二步：代码引入示例
 ```
-public class BannerOTTActivity extends AppCompatActivity {
+public class BannerOTTActivity extends AppCompatActivity implements View.OnFocusChangeListener {
 
     private FoxWallView wv;
 
+    private TextView tvLeft;
+    private TextView tvRight;
+    private TextView tvTop;
+    private TextView tvBottom;
+
     private int slotId;
+    private static final int ANIMATION_DURATION = 300;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -537,6 +764,22 @@ public class BannerOTTActivity extends AppCompatActivity {
         slotId = getIntent().getIntExtra("slotId", 0);
 
         wv = findViewById(R.id.wv_banner);
+        tvLeft = findViewById(R.id.tv_banner_left);
+        tvRight = findViewById(R.id.tv_banner_right);
+        tvTop = findViewById(R.id.tv_banner_top);
+        tvBottom = findViewById(R.id.tv_banner_bottom);
+        
+        // 设置获焦监听事件
+        tvLeft.setOnFocusChangeListener(this);
+        tvRight.setOnFocusChangeListener(this);
+        tvTop.setOnFocusChangeListener(this);
+        tvBottom.setOnFocusChangeListener(this);
+
+        // 设置方向按键
+        wv.setFoxNextLeftFocusView(tvLeft);
+        wv.setFoxNextRightFocusView(tvRight);
+        wv.setFoxNextUpFocusView(tvTop);
+        wv.setFoxNextDownFocusView(tvBottom);
 
         // 加载广告id
         wv.loadAd(slotId);
@@ -546,11 +789,21 @@ public class BannerOTTActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        // 销毁view
         if (wv != null){
             wv.destroy();
         }
 
         super.onDestroy();
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus){
+            TADemoAnimationUtil.enlarge(v, 1.2F, ANIMATION_DURATION);
+        }else {
+            TADemoAnimationUtil.shrink(v, 1.2F, ANIMATION_DURATION);
+        }
     }
 }
 ```
@@ -978,6 +1231,13 @@ public class InfoStreamOTTActivity extends AppCompatActivity implements FoxTempl
 
         adapter.setDataList(dataList);
         adapter.notifyDataSetChanged();
+
+        lv.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                adapter.updateFocusDirection();
+            }
+        }, 500);
     }
 
     @Override
@@ -1021,20 +1281,55 @@ public class InfoStreamOTTActivity extends AppCompatActivity implements FoxTempl
 ### 第一步：xml中引入布局
 ```
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rl_text_link_container">
-</RelativeLayout>
+    android:id="@+id/fl_text_link_container">
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_top"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tv_text_link_top"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_left"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/tv_text_link_left"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_right"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical|end"
+        android:id="@+id/tv_text_link_right"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_bottom"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal|bottom"
+        android:id="@+id/tv_text_link_bottom"/>
+</FrameLayout>
 ```
 ### 第二步：代码引入示例
 ```
-public class TextLinkOTTActivity extends AppCompatActivity implements FoxTextLinkHolder.LoadInfoAdListener {
+public class TextLinkOTTActivity extends AppCompatActivity implements FoxTextLinkHolder.LoadInfoAdListener, View.OnFocusChangeListener {
 
-    private RelativeLayout rlContainer;
+    private FrameLayout flContainer;
+
+    private TextView tvLeft;
+    private TextView tvRight;
+    private TextView tvTop;
+    private TextView tvBottom;
 
     private FoxTextLinkHolder foxTextLinkHolder;
+
+    private static final int ANIMATION_DURATION = 300;
 
     private int slotId;
 
@@ -1042,10 +1337,26 @@ public class TextLinkOTTActivity extends AppCompatActivity implements FoxTextLin
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_link_ott);
-        rlContainer = findViewById(R.id.rl_text_link_container);
+        
+        flContainer = findViewById(R.id.fl_text_link_container);
+        tvLeft = findViewById(R.id.tv_text_link_left);
+        tvRight = findViewById(R.id.tv_text_link_right);
+        tvTop = findViewById(R.id.tv_text_link_top);
+        tvBottom = findViewById(R.id.tv_text_link_bottom);
 
         slotId = getIntent().getIntExtra("slotId", 0);
+
+        tvLeft.setOnFocusChangeListener(this);
+        tvRight.setOnFocusChangeListener(this);
+        tvTop.setOnFocusChangeListener(this);
+        tvBottom.setOnFocusChangeListener(this);
+        
         initView();
+        
+        foxTextLinkHolder.setFoxNextLeftFocusView(tvLeft);
+        foxTextLinkHolder.setFoxNextRightFocusView(tvRight);
+        foxTextLinkHolder.setFoxNextUpFocusView(tvTop);
+        foxTextLinkHolder.setFoxNextDownFocusView(tvBottom);
     }
 
     private void initView(){
@@ -1086,9 +1397,10 @@ public class TextLinkOTTActivity extends AppCompatActivity implements FoxTextLin
         foxTextLintAd.setTitleColor(R.color.black);
         foxTextLintAd.setDescColor(getResources().getColor(R.color.yellow));
         // 动态添加文字链holder到container
-        rlContainer.removeAllViews();
-        rlContainer.addView(foxTextLintAd.getView());
+        flContainer.removeAllViews();
+        flContainer.addView(foxTextLintAd.getView());
 
+        // 对view手动设置获焦
         foxTextLintAd.getView().requestFocus();
     }
 
@@ -1126,33 +1438,66 @@ public class TextLinkOTTActivity extends AppCompatActivity implements FoxTextLin
     public void onAdActivityClose(String s) {
         Toast.makeText(this, getString(R.string.toast_time_over), Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus){
+            TADemoAnimationUtil.enlarge(v, 1.2F, ANIMATION_DURATION);
+        }else {
+            TADemoAnimationUtil.shrink(v, 1.2F, ANIMATION_DURATION);
+        }
+    }
 }
 ```
 ### 7.10 悬浮升级
 ```
-public class AnimationFloatingOTTActivity extends AppCompatActivity implements FoxFloatingWebHolder.FloatingWebAdLoadListener {
+public class AnimationFloatingOTTActivity extends AppCompatActivity implements FoxFloatingWebHolder.FloatingWebAdLoadListener, View.OnFocusChangeListener {
 
     private int slotId;
+    private static final int ANIMATION_DURATION = 300;
 
     private FoxFloatingWebHolder foxFloatingWebHolder;
+    
+    private TextView tvLeft;
+    private TextView tvRight;
+    private TextView tvTop;
+    private TextView tvBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animation_floating_ott);
 
+        tvLeft = findViewById(R.id.tv_animation_floating_left);
+        tvRight = findViewById(R.id.tv_animation_floating_right);
+        tvTop = findViewById(R.id.tv_animation_floating_top);
+        tvBottom = findViewById(R.id.tv_animation_floating_bottom);
+        
+        // 获取广告id
         slotId = getIntent().getIntExtra("slotId", 0);
 
         initView();
     }
 
     private void initView() {
+        // 设置获焦监听事件
+        tvLeft.setOnFocusChangeListener(this);
+        tvRight.setOnFocusChangeListener(this);
+        tvTop.setOnFocusChangeListener(this);
+        tvBottom.setOnFocusChangeListener(this);
+        
         // 创建悬浮升级holder
         foxFloatingWebHolder = FoxNativeAdHelper.getFoxFloatingWebHolder();
         // holder绑定当前activity
         foxFloatingWebHolder.setFloatingHost(this);
         // 设置holder信息
         foxFloatingWebHolder.setConfigInfo(TAConfig.APP_KEY, TAConfig.APP_SECRET);
+
+        // 设置方向按键
+        foxFloatingWebHolder.setFoxNextLeftFocusView(tvLeft);
+        foxFloatingWebHolder.setFoxNextRightFocusView(tvRight);
+        foxFloatingWebHolder.setFoxNextUpFocusView(tvTop);
+        foxFloatingWebHolder.setFoxNextDownFocusView(tvBottom);
 
         // 设置holder属性
         String left = "50";
@@ -1203,6 +1548,15 @@ public class AnimationFloatingOTTActivity extends AppCompatActivity implements F
     @Override
     public void onAdMessage(String s) {
         Toast.makeText(this, "ad msg = " + s, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus){
+            TADemoAnimationUtil.enlarge(v, 1.2F, ANIMATION_DURATION);   
+        }else {
+            TADemoAnimationUtil.shrink(v, 1.2F, ANIMATION_DURATION);
+        }
     }
 }
 ```

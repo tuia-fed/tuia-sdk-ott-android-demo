@@ -2,38 +2,65 @@ package com.lechuan.midunovel2.activity;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lechuan.midunovel2.R;
 import com.lechuan.midunovel2.config.TAConfig;
+import com.lechuan.midunovel2.utils.TADemoAnimationUtil;
 import com.mediamain.android.view.holder.FoxFloatingWebHolder;
 import com.mediamain.android.view.holder.FoxNativeAdHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AnimationFloatingOTTActivity extends AppCompatActivity implements FoxFloatingWebHolder.FloatingWebAdLoadListener {
+public class AnimationFloatingOTTActivity extends AppCompatActivity implements FoxFloatingWebHolder.FloatingWebAdLoadListener, View.OnFocusChangeListener {
 
     private int slotId;
+    private static final int ANIMATION_DURATION = 300;
 
     private FoxFloatingWebHolder foxFloatingWebHolder;
+
+    private TextView tvLeft;
+    private TextView tvRight;
+    private TextView tvTop;
+    private TextView tvBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animation_floating_ott);
 
+        tvLeft = findViewById(R.id.tv_animation_floating_left);
+        tvRight = findViewById(R.id.tv_animation_floating_right);
+        tvTop = findViewById(R.id.tv_animation_floating_top);
+        tvBottom = findViewById(R.id.tv_animation_floating_bottom);
+
+        // 获取广告id
         slotId = getIntent().getIntExtra("slotId", 0);
 
         initView();
     }
 
     private void initView() {
+        // 设置获焦监听事件
+        tvLeft.setOnFocusChangeListener(this);
+        tvRight.setOnFocusChangeListener(this);
+        tvTop.setOnFocusChangeListener(this);
+        tvBottom.setOnFocusChangeListener(this);
+
         // 创建悬浮升级holder
         foxFloatingWebHolder = FoxNativeAdHelper.getFoxFloatingWebHolder();
         // holder绑定当前activity
         foxFloatingWebHolder.setFloatingHost(this);
         // 设置holder信息
         foxFloatingWebHolder.setConfigInfo(TAConfig.APP_KEY, TAConfig.APP_SECRET);
+
+        // 设置方向按键
+        foxFloatingWebHolder.setFoxNextLeftFocusView(tvLeft);
+        foxFloatingWebHolder.setFoxNextRightFocusView(tvRight);
+        foxFloatingWebHolder.setFoxNextUpFocusView(tvTop);
+        foxFloatingWebHolder.setFoxNextDownFocusView(tvBottom);
 
         // 设置holder属性
         String left = "50";
@@ -84,5 +111,14 @@ public class AnimationFloatingOTTActivity extends AppCompatActivity implements F
     @Override
     public void onAdMessage(String s) {
         Toast.makeText(this, "ad msg = " + s, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus){
+            TADemoAnimationUtil.enlarge(v, 1.2F, ANIMATION_DURATION);
+        }else {
+            TADemoAnimationUtil.shrink(v, 1.2F, ANIMATION_DURATION);
+        }
     }
 }

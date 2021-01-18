@@ -1,15 +1,14 @@
 package com.lechuan.midunovel2.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.lechuan.midunovel2.R;
 import com.mediamain.android.view.FoxCustomerTm;
 import com.mediamain.android.view.interfaces.FoxNsTmListener;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class CustomOTTActivity extends AppCompatActivity {
 
@@ -24,7 +23,6 @@ public class CustomOTTActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_ott);
-        bt = findViewById(R.id.bt_custom);
 
         customerTm = new FoxCustomerTm(this);
         initListener();
@@ -77,4 +75,5 @@ public class CustomOTTActivity extends AppCompatActivity {
 
         super.onDestroy();
     }
+
 }

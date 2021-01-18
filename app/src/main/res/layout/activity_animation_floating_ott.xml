@@ -3,4 +3,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_top"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tv_animation_floating_top"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_left"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/tv_animation_floating_left"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_right"
+        android:background="@color/yellow"
+        android:layout_gravity="center_vertical|end"
+        android:id="@+id/tv_animation_floating_right"/>
+
+    <TextView
+        style="@style/layout_bt"
+        android:text="@string/on_the_bottom"
+        android:background="@color/yellow"
+        android:layout_gravity="center_horizontal|bottom"
+        android:id="@+id/tv_animation_floating_bottom"/>
 </FrameLayout>

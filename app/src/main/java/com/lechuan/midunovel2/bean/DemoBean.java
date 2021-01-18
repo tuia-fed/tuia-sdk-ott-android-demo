@@ -1,5 +1,7 @@
 package com.lechuan.midunovel2.bean;
 
+import android.view.View;
+
 import com.mediamain.android.view.interfaces.IFoxTempletInfoFeedAd;
 
 /**
@@ -13,6 +15,8 @@ import com.mediamain.android.view.interfaces.IFoxTempletInfoFeedAd;
 public class DemoBean {
 
     private IFoxTempletInfoFeedAd ad;
+    private View beforeView;
+    private View nextView;
 
     public DemoBean(IFoxTempletInfoFeedAd ad){
         this.ad = ad;
@@ -20,5 +24,21 @@ public class DemoBean {
 
     public IFoxTempletInfoFeedAd getAd() {
         return ad;
+    }
+
+    public View getBeforeView() {
+        return beforeView;
+    }
+
+    public void setBeforeView(View beforeView) {
+        this.beforeView = beforeView;
+    }
+
+    public View getNextView() {
+        return nextView;
+    }
+
+    public void setNextView(View nextView) {
+        this.nextView = nextView;
     }
 }

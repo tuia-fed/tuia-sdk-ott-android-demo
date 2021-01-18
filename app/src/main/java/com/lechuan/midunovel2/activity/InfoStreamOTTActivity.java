@@ -82,6 +82,13 @@ public class InfoStreamOTTActivity extends AppCompatActivity implements FoxTempl
 
         adapter.setDataList(dataList);
         adapter.notifyDataSetChanged();
+
+        lv.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                adapter.updateFocusDirection();
+            }
+        }, 500);
     }
 
     @Override

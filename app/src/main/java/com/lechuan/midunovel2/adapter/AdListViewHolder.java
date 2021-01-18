@@ -26,6 +26,7 @@ public class AdListViewHolder implements View.OnFocusChangeListener {
 
     private RelativeLayout rlContainer;
     private View view;
+    private TextView tv;
 
     public AdListViewHolder(Context context, ViewGroup viewGroup, DemoBean bean){
         if (context == null){
@@ -53,11 +54,14 @@ public class AdListViewHolder implements View.OnFocusChangeListener {
         }
         rlContainer.removeAllViews();
         rlContainer.addView(bean.getAd().getView());
-        bean.getAd().getView().requestFocus();
     }
 
     public View getView() {
         return view;
+    }
+
+    public TextView getTv() {
+        return tv;
     }
 
     @Override
